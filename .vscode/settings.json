@@ -5,7 +5,7 @@
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib\\junit-platform-console-standalone-1.13.0-M3.jar"
+        "c:\\Users\\r3dha\\OneDrive - student.helmo.be\\HELMo\\B1\\Programation de base\\labo\\lib\\junit-platform-console-standalone-1.13.0-M3.jar"
     ],
     "java.debug.settings.onBuildFailureProceed": true
 }

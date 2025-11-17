@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Cette classe propose différentes fonctions permettant de réaliser
@@ -31,7 +33,7 @@ public class Console {
 				resultat = lecteur.readLine();
 			} else {
 				resultat = saisies.remove();
-				System.out.println(resultat);
+				IO.println(resultat);
 			}
 		} catch (IOException e) {
 			System.err.println("Erreur dans Console.lireString : " + e.getMessage());
@@ -48,10 +50,57 @@ public class Console {
 	 * @since 1.3
 	 */
 	public static String lireString(String message) {
-		System.out.print(message);
+		IO.print(message);
 		return lireString();
 	}
+	/**
+	 * Récupère la saisie de l'utilisateur au format String et respectant l'expression réguilière.
+	 * @param message Le texte à afficher pour indiquer à l'utilisateur la donnée
+	 * 				  attendue.
+	 * @param regex l'expression régulière a respecter.
+	 * @return la chaîne de caractères saisie.
+	 * @since 1.5
+	 * 
+	 */
+	private static String lireString(String message, String regex) {
+		Pattern pattern = Pattern.compile(regex);
+		
+		String s = lireString(message);
+		Matcher matcher  = pattern.matcher(s);
+		return matcher.matches() ? s : null;
+	}
+	/**
+	 * Récupère la saisie de l'utilisateur au format String et respectant l'expression réguilière.
+	 * @param message Le texte à afficher pour indiquer à l'utilisateur la donnée
+	 * 				  attendue.
+	 * @param messageErreur Le texte à afficher lors d'une erreur de saisie.
+	 * @param regex l'expression régulière a respecter.
+	 * @return la chaîne de caractères saisie.
+	 * @since 1.5
+	 * 
+	 */
+	public static String lireStringWhile(String message, String regex) {
+		boolean isCorrect = false;
+		String s; 
+		do {
+			s = lireString(message, regex);
+			if(s != null) isCorrect = !isCorrect;
+		}
+		while(!isCorrect);
+		return s;
+	}
 
+	public static String lireStringWhile(String message, String messageErreur, String regex) {
+		boolean isCorrect = false;
+		String s;
+		do {
+			s = lireString(message, regex);
+			if(s == null) IO.println(messageErreur);
+			else isCorrect = !isCorrect;
+		} while(!isCorrect);
+
+		return s;
+	} 
 	/**
 	 * Récupère la saisie de l'utilisateur au format char.
 	 * 
@@ -79,7 +128,7 @@ public class Console {
 	 * @since 1.3
 	 */
 	public static char lireChar(String message) {
-		System.out.print(message);
+		IO.print(message);
 		return lireChar();
 	}
 
@@ -111,7 +160,7 @@ public class Console {
 	 * @since 1.3
 	 */
 	public static int lireInt(String message) {
-		System.out.print(message);
+		IO.print(message);
 		return lireInt();
 	}
 
@@ -143,7 +192,7 @@ public class Console {
 	 * @since 1.3
 	 */
 	public static long lireLong(String message) {
-		System.out.print(message);
+		IO.print(message);
 		return lireLong();
 	}
 
@@ -175,7 +224,7 @@ public class Console {
 	 * @since 1.3
 	 */
 	public static float lireFloat(String message) {
-		System.out.print(message);
+		IO.print(message);
 		return lireFloat();
 	}
 
@@ -207,7 +256,7 @@ public class Console {
 	 * @since 1.3
 	 */
 	public static double lireDouble(String message) {
-		System.out.print(message);
+		IO.print(message);
 		return lireDouble();
 	}
 
