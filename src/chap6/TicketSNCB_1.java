@@ -18,6 +18,6 @@ public class TicketSNCB_1 {
 
 	public static void main(String[] args) {
 		int age = Console.lireInt("Votre âge ? ");
-		IO.println(String.format("Prix à payer = %.2f EUR\n", calculerPrix(age)));
+		System.out.println(String.format("Prix à payer = %.2f EUR\n", calculerPrix(age)));
 	}
 }

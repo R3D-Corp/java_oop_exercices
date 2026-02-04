@@ -21,7 +21,7 @@ public class DistributeurBillets {
 				}
 			}
 		};
-		IO.println(Arrays.toString(VALEURS_BILLETS));
+		System.out.println(Arrays.toString(VALEURS_BILLETS));
 	}
 
 	public static void main(String[] args) {
@@ -40,7 +40,7 @@ public class DistributeurBillets {
 			int v = VALEURS_BILLETS[i];
 			int billetRendu = billetsRendu[i] = montant / v;
 
-			IO.println(String.format("%d fois %d", billetRendu, v));
+			System.out.println(String.format("%d fois %d", billetRendu, v));
 			montant = montant % v;
 		};
 	}

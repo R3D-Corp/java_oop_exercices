@@ -74,7 +74,7 @@ public class SuperClics {
 		if(distance<=RAYON) {
 			nouvellePartie();
 			points = points + (10000 / TempsAuClic);
-			IO.println("Votre score : " + points);
+			System.out.println("Votre score : " + points);
 		}
 	}
 
@@ -95,7 +95,7 @@ public class SuperClics {
 		cadre = new JFrame(titre);
 		cadre.setFocusable(true);
 		cadre.setResizable(false);
-		cadre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		cadre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		panneau = new Panneau();
 		panneau.setLayout(null);

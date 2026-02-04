@@ -50,7 +50,7 @@ public class LogEntry {
         prefixeBuilder.append("\s");
         prefixeBuilder.append(message);
 
-        IO.println(prefixeBuilder.toString());
+        System.out.println(prefixeBuilder.toString());
     }
 
     private LogEntry(LogsType logsType, String value, String[][] fields) {

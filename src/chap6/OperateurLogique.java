@@ -10,8 +10,8 @@ public class OperateurLogique {
      * @param inIt booléen repésentant l'appartenance ou non de x a l'intervalle.
      */
     private static void message(int intervalle, boolean inIt) {
-        if(inIt) IO.println(String.format("x est un élement de l'intervalle %s ", intervalle));
-        else IO.println(String.format("x n'est pas un élement de l'intervalle %s ", intervalle));
+        if(inIt) System.out.println(String.format("x est un élement de l'intervalle %s ", intervalle));
+        else System.out.println(String.format("x n'est pas un élement de l'intervalle %s ", intervalle));
     }
 
     public static void main(String[] args) {

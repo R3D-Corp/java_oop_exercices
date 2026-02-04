@@ -58,7 +58,7 @@ public class AdresseIPEnBase10 {
 			toPrint += convertirOctet(octets[i]);
 		}
 
-		IO.println(String.format("mon ip : %s", toPrint));
+		System.out.println(String.format("mon ip : %s", toPrint));
 	}
 	
 }

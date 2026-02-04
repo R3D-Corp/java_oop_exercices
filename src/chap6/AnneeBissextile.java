@@ -17,9 +17,9 @@ public class AnneeBissextile {
         int annee = Console.lireInt("Année ? ");
 
         if(estBissextile(annee)) {
-            IO.println(String.format("L'année %s est bissextile", annee));
+            System.out.println(String.format("L'année %s est bissextile", annee));
         } else {
-            IO.println(String.format("L'année %s n'est pas bissextile", annee));
+            System.out.println(String.format("L'année %s n'est pas bissextile", annee));
         }
     }
 }

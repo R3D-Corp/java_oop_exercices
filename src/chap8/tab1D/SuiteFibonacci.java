@@ -29,12 +29,11 @@ public class SuiteFibonacci {
 
         int length = Integer.parseInt(Console.lireStringWhile("Jusqu'a quelle itération voulez vous connaitre ? ", "Erreur", "\\d{1,5}"));
         if (length == 1)
-            throw new IllegalArgumentException("Erreur lors de l'acquistion !", new Throwable("fibonacci's length == 1"));
-
+            return;
         long[] t = createArray(length);
         for (int i = 1; i < t.length - 1; i++) {
             t[i + 1] = t[i] + t[i - 1];
         }
-        IO.println(Arrays.toString(t));
+        System.out.println(Arrays.toString(t));
     }
 }

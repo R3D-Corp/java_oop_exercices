@@ -31,7 +31,7 @@ public class LogsManager {
             writer.append("\n");
             writer.append(GSON.toJson(log));
         } catch(Exception e) {
-            IO.println(e);
+            System.out.println(e);
         }
     }
 
@@ -43,7 +43,7 @@ public class LogsManager {
     public void addLog(LogEntry log) {
         logs.add(log);
         this.appendLog(log);
-        log.print();
+        if(this.verbose) log.print();
     }
 
     /**
@@ -100,7 +100,7 @@ public class LogsManager {
                 this.logs = new ArrayList<LogEntry>();
             }
         } catch (Exception e) {
-            IO.println(e);
+            System.out.println(e);
         }
 
     }

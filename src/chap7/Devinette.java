@@ -14,23 +14,23 @@ public class Devinette {
         // aDeviner = Random.getInclude(1, 10);
         aDeviner = 3;
         while(isRunning) {
-            IO.println("================");
+            System.out.println("================");
             iteration++;
             if(iteration <= MAX_GAME) {
                 proposition = Integer.parseInt(Console.lireStringWhile("Entier de 1 à 10 : ", "Input incorrect", regex));
         
                 if(proposition == aDeviner) {
                     isRunning = false;
-                    IO.println("Bravo tu as trouvé le nombre");
+                    System.out.println("Bravo tu as trouvé le nombre");
                     break;
                 }
-                else if(proposition < aDeviner) IO.println("Le nombre est plus grand");
-                else IO.println("Le nombre est plus petit");
+                else if(proposition < aDeviner) System.out.println("Le nombre est plus grand");
+                else System.out.println("Le nombre est plus petit");
         
-                IO.println(String.format("Il vous reste %d tentative(s)", MAX_GAME - iteration));
+                System.out.println(String.format("Il vous reste %d tentative(s)", MAX_GAME - iteration));
                 continue;
             } else if(iteration == MAX_GAME+1) {
-                IO.println("Malheureusement vous avez perdu.");
+                System.out.println("Malheureusement vous avez perdu.");
                 break;
             };
         }

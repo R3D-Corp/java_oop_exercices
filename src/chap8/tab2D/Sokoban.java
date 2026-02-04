@@ -198,7 +198,7 @@ public class Sokoban extends JPanel implements KeyListener {
 
 	public Sokoban() {
 		frame = new JFrame("Sokoban");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.add(this);
 		frame.setLocationRelativeTo(null);
 		frame.addKeyListener(this);

@@ -37,7 +37,7 @@ public class NumerosInternationaux {
 			default -> "Inconnu";
 		};
 
-		IO.println("Pays d'origine = " + paysOrigine);
+		System.out.println("Pays d'origine = " + paysOrigine);
 	}
 
 }

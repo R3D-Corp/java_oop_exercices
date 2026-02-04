@@ -9,7 +9,7 @@ public class Geometrie {
 
     private static void afficherResultat(double perimetre, double aire, String form, int arrondiVoulu) {
         String format = String.format("%%.%df", arrondiVoulu);
-        IO.println(String.format("Le %s a une aire de " + format +"cm² et un perimètre de " + format + "cm\n", form, aire, perimetre));
+        System.out.println(String.format("Le %s a une aire de " + format +"cm² et un perimètre de " + format + "cm\n", form, aire, perimetre));
     }
 
     private static double arrondir(double aArrondir, int decimales) {
@@ -51,7 +51,7 @@ public class Geometrie {
                 afficherResultat(perimetre, aire, forme, arrondiVoulu);
                 break;
             default:
-                IO.println(String.format("Malheureusement, la forme %s n'est pas prise en charge =(", forme));
+                System.out.println(String.format("Malheureusement, la forme %s n'est pas prise en charge =(", forme));
                 break;
         }
     }

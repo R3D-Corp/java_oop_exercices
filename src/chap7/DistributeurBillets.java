@@ -45,7 +45,7 @@ public class DistributeurBillets {
             int montant = getValue();
             int[] billets = compterBillets(montant);
             for (int i=0; i<BILLETS_TYPE.length; i++) {
-                IO.println(String.format("%d billet(s) de %d€", billets[i], BILLETS_TYPE[i]));
+                System.out.println(String.format("%d billet(s) de %d€", billets[i], BILLETS_TYPE[i]));
             }
         }
         System.out.println("Fin du programme");

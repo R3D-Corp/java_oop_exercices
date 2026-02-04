@@ -49,7 +49,7 @@ public class JoursParMois {
         int mois = Integer.parseInt(Console.lireStringWhile("Mois de (1 à 12) ? ", "Mois incorrect", regex_mois));
         int annee = Integer.parseInt(Console.lireStringWhile("Année ? ", "Année incorrecte", "\\d{1,5}"));
 
-        IO.println(String.format("Il y'a %d jours dans le mois %d/%d", joursParMois(mois, annee), mois, annee));
+        System.out.println(String.format("Il y'a %d jours dans le mois %d/%d", joursParMois(mois, annee), mois, annee));
     }
 
 }

@@ -33,7 +33,7 @@ public class Console {
 				resultat = lecteur.readLine();
 			} else {
 				resultat = saisies.remove();
-				IO.println(resultat);
+				System.out.println(resultat);
 			}
 		} catch (IOException e) {
 			System.err.println("Erreur dans Console.lireString : " + e.getMessage());
@@ -94,7 +94,7 @@ public class Console {
 		String s;
 		do {
 			s = lireString(message, regex);
-			if(s == null) IO.println(messageErreur);
+			if(s == null) System.out.println(messageErreur);
 			else isCorrect = !isCorrect;
 		} while(!isCorrect);
 
