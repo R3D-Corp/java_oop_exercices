@@ -1,6 +1,6 @@
 package exercices;
 
-import io.Console;
+import prb.io.Console;
 
 public class Avion {
     public static void main(String[] args) {
