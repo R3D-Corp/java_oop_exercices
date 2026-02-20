@@ -1,4 +1,8 @@
+# Fichiers de configuration de l'IDE
 .vscode/
+# Sortie de compilation Java
 bin/
-data/logs/
 
+# Fichiers de log et de documentation
+data/logs/
+doc/

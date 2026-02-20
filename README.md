@@ -13,8 +13,8 @@ N'hésitez pas à consulter ou comparer votre code avec les exemples présents i
 
 ## Droits d'auteur & Dépendances
 
-- Tous droits réservés sur les idées de programmes à Comblin Arnaud
-- Tous droits réservés pour les dossiers `io` et `util` à Comblin Arnaud.
+- Tous droits réservés sur les idées de programmes de `src/theory` à Comblin Arnaud
+- Tous droits réservés pour les dossiers `io` et `util` à Comblin Arnaud & Ethan Redoté.
 - Tous droits réservés pour le dossier `src` à Ethan Redoté.
 
 ## Overview
@@ -32,6 +32,7 @@ Feel free to reference or compare your code with the examples here. If you use a
 
 ## Copyright & Dependencies
 
-- All rights reserved for the `io` and `util` folders by Comblin Arnaud.
+- All rights reserved for the programs ideas in `src/theory` by Comblin Arnaud
+- All rights reserved for the `io` and `util` folders by Comblin Arnaud & Ethan Redoté.
 - All rights reserved for the `src` folder by Ethan Redoté.
 

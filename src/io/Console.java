@@ -3,6 +3,10 @@ package io;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
+import java.util.Scanner;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,13 +16,13 @@ import java.util.regex.Pattern;
  * l'acquisition d'une donnée au format approprié.
  *
  * @author Arnaud Comblin
- * @version 1.4
+ * @version 1.5
  */
 public class Console {
 
 	private static BufferedReader lecteur = new BufferedReader(new InputStreamReader(System.in));
-
 	private static LinkedBlockingQueue<String> saisies = new LinkedBlockingQueue<String>();
+	private static final NumberFormat FORMATTER = NumberFormat.getNumberInstance(Locale.ENGLISH);
 
 	/**
 	 * Récupère la saisie de l'utilisateur au format String.
@@ -53,8 +57,9 @@ public class Console {
 		System.out.print(message);
 		return lireString();
 	}
+	
 	/**
-	 * Récupère la saisie de l'utilisateur au format String et respectant l'expression réguilière.
+	 * Récupère la saisie de l'utilisateur au format String et respectant l'expression régulière.
 	 * @param message Le texte à afficher pour indiquer à l'utilisateur la donnée
 	 * 				  attendue.
 	 * @param regex l'expression régulière a respecter.
@@ -69,11 +74,11 @@ public class Console {
 		Matcher matcher  = pattern.matcher(s);
 		return matcher.matches() ? s : null;
 	}
+	
 	/**
-	 * Récupère la saisie de l'utilisateur au format String et respectant l'expression réguilière.
+	 * Récupère la saisie de l'utilisateur au format String et respectant l'expression régulière.
 	 * @param message Le texte à afficher pour indiquer à l'utilisateur la donnée
 	 * 				  attendue.
-	 * @param messageErreur Le texte à afficher lors d'une erreur de saisie.
 	 * @param regex l'expression régulière a respecter.
 	 * @return la chaîne de caractères saisie.
 	 * @since 1.5
@@ -89,6 +94,16 @@ public class Console {
 		return s;
 	}
 
+	/**
+	 * Récupère la saisie de l'utilisateur au format String et respectant l'expression réguilière.
+	 * @param message Le texte à afficher pour indiquer à l'utilisateur la donnée
+	 * 				  attendue.
+	 * @param messageErreur Le texte à afficher lors d'une erreur de saisie.
+	 * @param regex l'expression régulière a respecter.
+	 * @return la chaîne de caractères saisie.
+	 * @since 1.5
+	 * 
+	 */
 	public static String lireStringWhile(String message, String messageErreur, String regex) {
 		boolean isCorrect = false;
 		String s;
@@ -100,6 +115,7 @@ public class Console {
 
 		return s;
 	} 
+
 	/**
 	 * Récupère la saisie de l'utilisateur au format char.
 	 * 
@@ -124,7 +140,7 @@ public class Console {
 	 *                attendue.
 	 * @return le premier caractère de la saisie si elle en contient au moins un,
 	 *         '\0' dans le cas contraire.
-	 * @since 1.3
+	 * @since 1.0
 	 */
 	public static char lireChar(String message) {
 		System.out.print(message);
@@ -292,4 +308,93 @@ public class Console {
 		saisies.clear();
 	}
 
+
+	/* --- Adapter Pattern --- */
+
+	/**
+	 * Récupère la saisie de l'utilisateur au format int
+	 * @param message Le texte à afficher pour indiquer à l'utilisateur la donnée
+	 * 				  attendue.
+	 * @return le int saisi.
+	 * @since 1.5
+	 * 
+	 */
+    public static int readInt(String message) {
+        String value = "";
+        Number n = null;
+        while(n == null) {
+            try {
+                value = lireString(message).trim();
+                n = FORMATTER.parse(value);
+            } catch(ParseException pe) {
+                n = null;
+            }
+        }
+        return n.intValue();
+    }
+
+	/**
+	 * Récupère la saisie de l'utilisateur au format float
+	 * @param message Le texte à afficher pour indiquer à l'utilisateur la donnée
+	 * 				  attendue.
+	 * @return le float saisi.
+	 * @since 1.5
+	 * 
+	 */
+    public static float readFloat(String message) {
+        String value = "";
+        Number n = null;
+        while(n == null) {
+            try {
+                value = lireString(message).trim();
+                n = FORMATTER.parse(value);
+            } catch(ParseException pe) {
+                n = null;
+            }
+        }
+        return n.floatValue();
+    }
+	
+	/**
+	 * Récupère la saisie de l'utilisateur au format int
+	 * @return le int saisi.
+	 * @since 1.5
+	 * 
+	 */
+    public static int readInt() {
+        return readInt(null);
+    }
+	
+	/**
+	 * Récupère la saisie de l'utilisateur au format float
+	 * @return le float saisi.
+	 * @since 1.5
+	 * 
+	 */
+    public static float readFloat() {
+        return readFloat(null);
+    }
+
+
+	/** Alias pour  System.out.printf(Locale l, String format, Object... args) */
+	public static void printf(String format, Object... args) {
+        System.out.printf(Locale.ENGLISH, format, args);
+    }
+
+	/** Alias pour  System.out.print(String s) */
+    public static void print(String message) {
+        System.out.print(message);
+    }
+
+	/** Alias pour  System.out.println(String s) */
+    public static void println(String message) {
+        System.out.println(message);
+    }
+
+	/** Alias pour  System.out.println() */
+    public static void println() {
+        System.out.println();
+    }
+
+	
 }
