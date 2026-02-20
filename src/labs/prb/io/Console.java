@@ -1,4 +1,4 @@
-package io;
+package labs.prb.io;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -85,7 +85,8 @@ public class Console {
 		do {
 			s = lireString(message, regex);
 			if(s != null) isCorrect = !isCorrect;
-		} while(!isCorrect);
+		}
+		while(!isCorrect);
 		return s;
 	}
 

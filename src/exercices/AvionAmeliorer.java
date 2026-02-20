@@ -1,9 +1,7 @@
 package exercices;
 
-import static org.junit.jupiter.api.Assumptions.abort;
-
-import prb.io.Console;
-import prb.util.Vector.Vector2;
+import io.Console;
+import util.Vector.Vector2;
 
 public class AvionAmeliorer {
 

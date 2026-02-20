@@ -1,13 +1,14 @@
 package util;
 
 import java.time.LocalDateTime;
+import java.time.DateTimeException;
 
 /**
  * Cette classe propose différentes fonctions permettant de réaliser des
  * opérations relatives aux dates.
  *
  * @author Arnaud Comblin
- * @version 1.3
+ * @version 1.4
  */
 public class Date {
 
@@ -16,26 +17,11 @@ public class Date {
 	 * 
 	 * @return un tableau de la forme [jour, mois, annee] contenant la date du jour.
 	 */
+
 	public static int[] aujourdhui() {
 		LocalDateTime lDT = LocalDateTime.now();
 		return new int[] { lDT.getDayOfMonth(), lDT.getMonthValue(), lDT.getYear() };
 	}
-
-	public static String[] formaterDate(int[] date) {
-		String[] s = new String[date.length];
-
-		for (int i = 0; i < date.length; i++) {
-			s[i] = date[i] <= 9 ? String.format("%02d", date[i]) : Integer.toString(date[i]);
-		}
-		return s;
-	}
-
-	public static int[] temps() {
-		LocalDateTime lDT = LocalDateTime.now();
-		return new int[] {lDT.getHour(), lDT.getMinute(), lDT.getSecond()};
-	}
-
-
 
 	/**
 	 * Renvoie le numéro du jour actuel.
@@ -71,7 +57,8 @@ public class Date {
 	 * Renvoie le nom d'un mois sur base de son numéro.
 	 * 
 	 * @param numero le numéro du mois de l'année, de 1 (janvier) à 12 (décembre).
-	 * @return le nom du mois si le numéro est valide, null dans le cas contraire.
+	 * @return le nom du mois si le numéro est valide, <code>null</code> dans le cas
+	 *         contraire.
 	 */
 	public static String nomDuMois(int numero) {
 		final String[] NOMS_MOIS = { "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août",
@@ -94,10 +81,17 @@ public class Date {
 	 * @param jour  Le numéro du jour du mois, de 1 à 31.
 	 * @param mois  Le numéro du mois de l'année, de 1 (janvier) à 12 (décembre).
 	 * @param annee L'année exprimée en 4 chiffres.
-	 * @return un entier compris entre 1 et 365, ou 366 en cas d'année bissextile.
+	 * @return un entier compris entre 1 et 365, ou 366 en cas d'année bissextile,
+	 *         si la date spécifiée est valide, 0 dans le cas contraire.
 	 */
 	public static int numeroJour(int jour, int mois, int annee) {
-		return LocalDateTime.of(annee, mois, jour, 0, 0).getDayOfYear();
+		int numero;
+		try {
+			numero = LocalDateTime.of(annee, mois, jour, 0, 0).getDayOfYear();
+		} catch (DateTimeException e) {
+			numero = 0;
+		}
+		return numero;
 	}
 
 	/**
@@ -107,21 +101,35 @@ public class Date {
 	 * @param date  un tableau de la forme [jour, mois, annee] contenant une date.
 	 * @param jours le nombre de jours à ajouter.
 	 * @return un tableau de la forme [jour, mois, annee] contenant la date
-	 *         résultant de l'addition.
+	 *         résultant de l'addition si la date spécifiée est valide, la référence
+	 *         <code>null</code> dans le cas contraire.
 	 */
 	public static int[] ajouterJours(int[] date, int jours) {
-		LocalDateTime lDT = LocalDateTime.of(date[2], date[1], date[0], 0, 0, 0).plusDays(jours);
-		return new int[] { lDT.getDayOfMonth(), lDT.getMonth().getValue(), lDT.getYear() };
+		int[] resultat;
+		try {
+			LocalDateTime lDT = LocalDateTime.of(date[2], date[1], date[0], 0, 0, 0).plusDays(jours);
+			resultat = new int[] { lDT.getDayOfMonth(), lDT.getMonth().getValue(), lDT.getYear() };
+		} catch (DateTimeException e) {
+			resultat = null;
+		}
+		return resultat;
 	}
 
 	/**
 	 * Renvoie le numéro du jour de la semaine pour la date spécifiée.
 	 * 
 	 * @param date un tableau de la forme [jour, mois, annee] contenant une date.
-	 * @return le numéro du jour de la semaine, de 1 (lundi) à 7 (dimanche).
+	 * @return le numéro du jour de la semaine, de 1 (lundi) à 7 (dimanche), si la
+	 *         date spécifiée est valide, 0 dans le cas contraire.
 	 */
 	public static int numeroJourSemaine(int[] date) {
-		return LocalDateTime.of(date[2], date[1], date[0], 0, 0, 0).getDayOfWeek().getValue();
+		int numero;
+		try {
+			numero = LocalDateTime.of(date[2], date[1], date[0], 0, 0, 0).getDayOfWeek().getValue();
+		} catch (DateTimeException e) {
+			numero = 0;
+		}
+		return numero;
 	}
 
 	/**
@@ -148,6 +156,15 @@ public class Date {
 	 */
 	public static String nomJourSemaine(int[] date) {
 		return nomJourSemaine(numeroJourSemaine(date));
+	}
+
+	public static String[] formaterDate(int[] date) {
+		String[] s = new String[date.length];
+
+		for (int i = 0; i < date.length; i++) {
+			s[i] = date[i] <= 9 ? String.format("%02d", date[i]) : Integer.toString(date[i]);
+		}
+		return s;
 	}
 
 }
