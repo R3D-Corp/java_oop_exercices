@@ -174,8 +174,8 @@ public class Sokoban extends JPanel implements KeyListener {
 	}
 
 	// Constantes
-	private static final String CHEMIN_IMAGES = "sokoban/images/";
-	private static final String CHEMIN_NIVEAUX = "sokoban/niveaux/";
+	private static final String CHEMIN_IMAGES = "data/sokoban/images/";
+	private static final String CHEMIN_NIVEAUX = "data/sokoban/niveaux/";
 	private static final String[] NOMS_IMAGES = { "mur", "sol", "caisse", "rangement", "caisse_sur_rangement",
 			"joueur_haut", "joueur_droite", "joueur_bas", "joueur_gauche" };
 	private static final int TAILLE_CASE = 64;
