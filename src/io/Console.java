@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
-import java.util.Scanner;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -311,6 +310,11 @@ public class Console {
 
 	/* --- Adapter Pattern --- */
 
+	/** Alias pour lireString() */
+	public static String readLine(String message) {
+		return lireString(message);
+	}
+
 	/**
 	 * Récupère la saisie de l'utilisateur au format int
 	 * @param message Le texte à afficher pour indiquer à l'utilisateur la donnée
@@ -396,5 +400,20 @@ public class Console {
         System.out.println();
     }
 
-	
+	/** Redirige l'entrée standard (System.in) vers un autre flux */
+	public static void redirectInput(java.io.InputStream in) {
+		System.setIn(in);
+		// Important : il faut recréer le lecteur pour qu'il écoute le nouveau flux
+		lecteur = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
+	}
+
+	/** Redirige la sortie standard (System.out) vers un autre flux */
+	public static void redirectOutput(java.io.PrintStream out) {
+		System.setOut(out);
+	}
+
+	// surcharge pour gérer le ByteArrayOutputStream du test
+	public static void redirectOutput(java.io.OutputStream out) {
+		System.setOut(new java.io.PrintStream(out));
+	}
 }

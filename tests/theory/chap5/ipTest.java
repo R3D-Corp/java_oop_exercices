@@ -1,27 +1,34 @@
 package theory.chap5;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.Test;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
 
 public class ipTest {
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     @Order(1)
     public void convertirOctetLength() {
-        AdresseIPEnBase10.convertirOctet("010010110");
+        assertThrows(IllegalArgumentException.class, () -> {
+            AdresseIPEnBase10.convertirOctet("010010110");
+        });
     }
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     @Order(2)
     public void convertirOctetBinary() {
-        AdresseIPEnBase10.convertirOctet("0120101100");
+        assertThrows(IllegalArgumentException.class, () -> {
+            AdresseIPEnBase10.convertirOctet("0120101100");
+        });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     @Order(3)
     public void convertirIpLength() {
-        AdresseIPEnBase10.convertirIpToOctet("11000000.10101000.0000000");
+        assertThrows(IllegalArgumentException.class, () -> {
+            AdresseIPEnBase10.convertirIpToOctet("11000000.10101000.0000000");
+        });
     }
     
     @Test

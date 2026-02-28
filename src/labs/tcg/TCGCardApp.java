@@ -1,6 +1,6 @@
 package labs.tcg;
 
-import labs.io.Console;
+import io.Console;
 
 public class TCGCardApp {
 

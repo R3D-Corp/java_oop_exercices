@@ -1,9 +1,9 @@
 package theory.chap6;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
 public class TicketSNCB_2_Test {
 

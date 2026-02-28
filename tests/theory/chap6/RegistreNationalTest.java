@@ -1,8 +1,11 @@
 package theory.chap6;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Order;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 
 public class RegistreNationalTest {
@@ -19,28 +22,28 @@ public class RegistreNationalTest {
         assertFalse(RegistreNational.isValid("05.05.05-123.63"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     @Order(3)
     public void estInvalide_1() {
-        assertTrue(RegistreNational.isValid("36.10.21-171.99"));
+        assertThrows(IllegalArgumentException.class, () -> RegistreNational.isValid("36.10.21-171.99"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     @Order(4)
     public void estInvalide_2() {
-        assertTrue(RegistreNational.isValid("07.07.19-171.00"));
+        assertThrows(IllegalArgumentException.class, () -> RegistreNational.isValid("07.07.19-171.00"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     @Order(5)
     public void estInvalide_3() {
-        assertTrue(RegistreNational.isValid("07.07.19-171.54.33"));
+        assertThrows(IllegalArgumentException.class, () -> RegistreNational.isValid("07.07.19-171.54.33"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     @Order(6)
     public void estInvalide_4() {
-        assertTrue(RegistreNational.isValid("07.07.19-171"));
+        assertThrows(IllegalArgumentException.class, () -> RegistreNational.isValid("07.07.19-171"));
     }
 
 }
