@@ -3,9 +3,6 @@ package labs.labo1;
 import io.Console;
 
 public class ConversionsTemperature {
-	
-	
-	
 	public static void main(String[] args) {
 		double tCelsius, tKelvin, tFarhenheit;
 		tCelsius = 0;
