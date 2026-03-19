@@ -1,7 +1,5 @@
 package labs.trollshop;
 
-import java.util.Map;
-
 public interface Items {
 
     public String getName();

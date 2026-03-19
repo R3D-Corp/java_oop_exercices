@@ -1,8 +1,5 @@
 package labs.trollshop;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import util.Contract;
 
 /**

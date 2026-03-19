@@ -1,7 +1,5 @@
 package labs.trollshop;
 
-import java.util.ArrayList;
-
 public class TrollshopApp {
   private static final int ADD_TOOL = 1;
   private static final int LIST_TOOLS = 2;
