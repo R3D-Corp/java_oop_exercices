@@ -338,6 +338,34 @@ public class Console {
     }
 
 	/**
+	 * Récupère la saisie de l'utilisateur au format int dans une intervale voulue.
+	 * @param message Le texte à afficher pour indiquer à l'utilisateur la donnée
+	 * 				  attendue.
+	 * @param min Le minium que l'utilisateur peut donner (inclus)
+	 * @param max Le maximum que l'utisateur peut donner (inclus)
+	 * @return le int saisi compris entre {@code minIncl} et {@code maxIncl}.
+	 * @since 1.5
+	 * 
+	 */
+    public static int readInt(String message, int min, int max) {
+        String value = "";
+        Number n = null;
+        while(n == null) {
+            try {
+                value = lireString(message).trim();
+                n = FORMATTER.parse(value);
+
+				if(n.intValue() < min || n.intValue() > max) {
+					continue;
+				}
+            } catch(ParseException pe) {
+                n = null;
+            }
+        }
+        return n.intValue();
+    }
+
+	/**
 	 * Récupère la saisie de l'utilisateur au format float
 	 * @param message Le texte à afficher pour indiquer à l'utilisateur la donnée
 	 * 				  attendue.

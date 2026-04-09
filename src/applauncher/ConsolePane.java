@@ -25,8 +25,8 @@ public class ConsolePane extends JTextPane {
         SimpleAttributeSet attrs = new SimpleAttributeSet();
         StyleConstants.setForeground(attrs, color);
         StyleConstants.setBold(attrs, bold);
-
         StyledDocument doc = getStyledDocument();
+        
         try {
             doc.insertString(doc.getLength(), content, attrs);
 

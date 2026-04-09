@@ -15,7 +15,6 @@ public class TrollshopApp {
     Console.println("=".repeat(33));
     Console.println();
 
-    // TODO: créer un présentoire vide
     Toolrack rack = new Toolrack(5, new Tool[] {
         new Tool("Trident", Material.SILVER),
         null,
@@ -28,7 +27,6 @@ public class TrollshopApp {
       new Armor("L'armure du dragon pas sacré", Material.SILVER, Material.SILVER, Material.GOLD)
     });
 
-    // TODO : gérer le menu
     while (!quitRequested) {
       
 
@@ -42,9 +40,9 @@ public class TrollshopApp {
           Console.println();
           switch (userChoice) {
             case ADD_TOOL -> executeAddTool(rack);
-            case LIST_TOOLS -> executeListTool(rack);
-            case UPDATE_TOOL -> executeUpdateTool(rack);
-            case TAKE_TOOL -> executeTakeTool(rack);
+            case LIST_TOOLS -> executeListItem(rack);
+            case UPDATE_TOOL -> executeUpdateItem(rack);
+            case TAKE_TOOL -> executeTakeItem(rack);
             case COMPACT_TOOLS -> executeCompact(rack);
             case QUIT -> quitRequested = true;
           }
@@ -54,9 +52,9 @@ public class TrollshopApp {
           Console.println();
           switch (userChoice) {
             case ADD_TOOL -> executeAddArmor(armorRack);
-            case LIST_TOOLS -> executeListTool(armorRack);
-            case UPDATE_TOOL -> executeUpdateTool(armorRack);
-            case TAKE_TOOL -> executeTakeTool(armorRack);
+            case LIST_TOOLS -> executeListItem(armorRack);
+            case UPDATE_TOOL -> executeUpdateItem(armorRack);
+            case TAKE_TOOL -> executeTakeItem(armorRack);
             case COMPACT_TOOLS -> executeCompact(armorRack);
             case QUIT -> quitRequested = true;
           }
@@ -137,7 +135,7 @@ public class TrollshopApp {
     }
   }
 
-  private static <T extends Items> void executeUpdateTool(Rack<T> rack) {
+  private static <T extends Items> void executeUpdateItem(Rack<T> rack) {
     if (!rack.isEmpty()) {
       T[] allItems = rack.getItems();
 
@@ -162,7 +160,7 @@ public class TrollshopApp {
     }
   }
 
-  private static <T extends Items> void executeListTool(Rack<T> rack) {
+  private static <T extends Items> void executeListItem(Rack<T> rack) {
     T[] items = rack.getItems();
 
     Console.println("Etat du présentoir");
@@ -186,7 +184,7 @@ public class TrollshopApp {
     }
   }
 
-  private static <T extends Items> void executeTakeTool(Rack<T> belt) {
+  private static <T extends Items> void executeTakeItem(Rack<T> belt) {
     int i = 0;
 
     for (T tool : belt.getItems()) {
@@ -202,5 +200,4 @@ public class TrollshopApp {
   private static <T> void executeCompact(Rack<T> rack) {
     rack.compact();
   }
-
 }

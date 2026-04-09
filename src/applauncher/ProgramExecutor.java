@@ -24,59 +24,82 @@ public class ProgramExecutor {
         .replace("\\", ".");
     }
 
-
-    public static List<String> findPrograms(String rootPath) {
+    /**
+     * Finds all java programs/exercices from source code.
+     * @return List<String> Alls progams found in the path.
+     */
+    private static List<String> findProgramsInBin(java.security.CodeSource src) {
         List<String> classNames = new ArrayList<>();
 
         try {
+            java.net.URL jar = src.getLocation();
+            java.util.zip.ZipInputStream zip = new java.util.zip.ZipInputStream(jar.openStream());
 
-            java.security.CodeSource src = ProgramExecutor.class.getProtectionDomain().getCodeSource();
-            if (src != null && src.getLocation().getFile().endsWith(".jar")) {
-                java.net.URL jar = src.getLocation();
-                java.util.zip.ZipInputStream zip = new java.util.zip.ZipInputStream(jar.openStream());
-                
-                while (true) {
-                    java.util.zip.ZipEntry e = zip.getNextEntry();
-                    if (e == null) break;
-                    String name = e.getName();
-                    // On ne prend que les .class (le JAR contient du compilé, pas du .java)
-                    if (name.endsWith(".class") && !name.contains("$")) {
-                        String className = name.replace("/", ".").replace(".class", "");
-                        // On filtre pour ne pas afficher le launcher lui-même ou les libs
-                        if (className.startsWith("chap") || className.startsWith("io")) {
-                            if (hasMainMethod(className)) {
-                                classNames.add(className);
-                            }
+            while (true) {
+                java.util.zip.ZipEntry e = zip.getNextEntry();
+                if (e == null) break; // Stop the search part if there is no entry anymore.
+
+                String name = e.getName();
+                if (name.endsWith(".class") && !name.contains("$")) { // We search only for .class files. (Compilated java)
+                    String className = name.replace("/", ".").replace(".class", "");
+                    
+                    boolean isRelevant = className.startsWith("labs") || className.startsWith("theory"); // Is an program that I made.
+                    boolean isLauncher = className.equals(ProgramExecutor.class.getName());
+
+                    if (isRelevant && !isLauncher) {
+                        if (hasMainMethod(className)) {
+                            classNames.add(className);
                         }
                     }
                 }
-                java.util.Collections.sort(classNames);
-                return classNames;
             }
         } catch(Exception e) {
             e.printStackTrace();
         }
-        classNames = findProgramsFileSystem(rootPath);
+        
         java.util.Collections.sort(classNames);
         return classNames;
     }
-
-    public static List<String> findProgramsFileSystem(String rootPath) {
-
-        Path start = Paths.get(rootPath);
+    
+    /**
+     * Finds all java programs/exercices in `.java` in a path.
+     * @return List<String> Alls progams found in the path.
+     */
+    private static List<String> findProgramsInFile(String path) {
+        Path start = Paths.get(path);
         
         try (Stream<Path> stream = Files.walk(start)) {
             return stream
-            .filter(path -> path.toString().endsWith(".java"))
-            .map(path -> formatClassName(start, path))
-            .filter(className -> !className.contains("$"))
-            .collect(Collectors.toList());
+                .filter(p -> p.toString().endsWith(".java"))
+                .map(p -> formatClassName(start, p))
+                .filter(className -> !className.contains("$"))
+                .collect(Collectors.toList());
         } catch(IOException e) {
             System.out.println(e);
             return new ArrayList<>();
         }
     }
+    
+    /**
+     * Find all other programs which are launchable.
+     * @param rootPath
+     * @return List<String> All launchables programs.
+     */
+    public static List<String> findPrograms(String path) {
+        java.security.CodeSource src = ProgramExecutor.class.getProtectionDomain().getCodeSource();
+        if(src == null) return new ArrayList<String>();
 
+        List<String> programs = src.getLocation().getFile().endsWith(".jar") ? findProgramsInBin(src) : findProgramsInFile(path);
+        java.util.Collections.sort(programs);
+
+        return programs;
+    }
+    
+    /**
+     * Check if a java class has a main method.
+     * @param className the class to check.
+     * @return Have an main method.
+     */
     public static boolean hasMainMethod(String className) {
         try {
             Class<?> clazz = Class.forName(className);
@@ -87,6 +110,11 @@ public class ProgramExecutor {
         }
     }
 
+    /**
+     * Check if a java class is ready to be launched.
+     * @param className the class to check.
+     * @return Is ready to launch.
+     */
     public static boolean isReadyToRun(String className) {
         try{
             Class.forName(className);
@@ -96,7 +124,11 @@ public class ProgramExecutor {
         }
     }
 
-
+    /**
+     * Ask a class to stop itself.
+     * @param className the class to stop.
+     * @param out the pipedOutput to clear and to give last feedback.
+     */
     public static void stopClass(String className, PipedOutputStream out)   {
         Thread oldThread = threads.get(className);
         if(oldThread != null && oldThread.isAlive()) {
@@ -113,15 +145,21 @@ public class ProgramExecutor {
 
     };
 
-
+    /**
+     * Ask all class to stop themself.
+     * @param out the pipedOutput to clear and to give last feedbacks.
+     */
     public static void stopAllProcess(PipedOutputStream out) {
         threads.forEach((name, thread) -> {
             stopClass(name, out);
         });
     }
-
+    
+    /**
+     * Launch a new instance of class in an sepereate thread.
+     * @param className the class to launch.
+     */
     public static void executeClass(String className) {
-
         Thread oldThread = threads.get(className);
         if(oldThread != null && !oldThread.isAlive()) {
             oldThread.interrupt();

@@ -69,6 +69,7 @@ public class LogsManager {
      * @since 1.0
      * @author R3D
      */
+    @SuppressWarnings("unchecked")
     public LogsManager(String name, boolean verbose) {
         this.verbose = verbose;
         this.name = name;

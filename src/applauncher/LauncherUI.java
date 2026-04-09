@@ -20,20 +20,20 @@ import javax.swing.SwingUtilities;
 
 
 public class LauncherUI extends JFrame {
-    private JList<String> programsList;
-    private DefaultListModel<String> model;
     private static PipedOutputStream out;
     private static PipedInputStream in;
-
-    public void refreshProgramList() {
+    
+    public DefaultListModel<Program> initializeProgramList() {
+        DefaultListModel<Program> model = new DefaultListModel<>();
+        
         List<String> classes = ProgramExecutor.findPrograms("src");
-
-        model.clear();
         for(String className : classes) {
             if(ProgramExecutor.isReadyToRun(className) && ProgramExecutor.hasMainMethod(className)) {
-                model.addElement(className);
+                model.addElement(new Program(className));
             }
         }
+
+        return model;
     }
 
     // Etablit un tuyau de donnée input/output
@@ -71,23 +71,18 @@ public class LauncherUI extends JFrame {
 
 
     public LauncherUI() {
-
         initalizePipe();
         setTitle("Java Portfolio");
         setSize(400, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         
-        model = new DefaultListModel<>();
-        refreshProgramList();
-
-        programsList = new JList<>(model);
-        
         
         ConsolePane console = new ConsolePane();
         inializeConsolePipe(console);
         console.setUpInteractiveConsole(out);
-        
+
+        JList<Program> programsList = new JList<>(initializeProgramList());
         JScrollPane programsScroll = new JScrollPane(programsList);
         JScrollPane consoleScroll = new JScrollPane(console); 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, programsScroll, consoleScroll);
@@ -113,22 +108,16 @@ public class LauncherUI extends JFrame {
         /* Bouton pour lancer les différents projets */
         JButton launchButton = new JButton("Lancer le programme");
         launchButton.addActionListener(e -> {
-
-            // long memoryUsed = (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / (1024 * 1024);
-            // System.out.println("Utilisation réelle : " + memoryUsed + " Mo");
-
             System.out.flush();
 
             consoleTextField.requestFocusInWindow();
             consoleTextField.setText("");
-            String selection = programsList.getSelectedValue();;
+
+            Program selection = programsList.getSelectedValue();;
             if(selection != null) {
-                ProgramExecutor.executeClass(selection);
+                ProgramExecutor.executeClass(selection.fullName());
             }
-            
-            
         });
-        
 
         userActionsPanel.add(launchButton, BorderLayout.NORTH);
         userActionsPanel.add(consoleTextField, BorderLayout.SOUTH);        
@@ -137,7 +126,6 @@ public class LauncherUI extends JFrame {
     }
 
     public static void main(String[] args) {
-
         com.formdev.flatlaf.FlatDarkLaf.setup();
         SwingUtilities.invokeLater(() -> new LauncherUI().setVisible(true));
     }
