@@ -1,7 +1,6 @@
 package labs.math.matrices_bits.monalisa;
 
 import labs.math.matrices_bits.matrix.Matrix;
-import labs.math.matrices_bits.matrix.Matrix.MatrixType;
 import labs.math.matrices_bits.matrix.Utils;
 
 /**
@@ -26,9 +25,6 @@ public class MonaLisa {
 		Matrix mMasqueMonaLisa = Utils.loadImage("data/math/img/monalisa/masque_mona_lisa.png");
 		Matrix mMasqueLunette = new Matrix(mPlage.getNumRows(), mPlage.getNumCols(), 0, 0).insertIntoThis(65, 205,mLunettes.not());
 		Matrix fondRose = new Matrix(mPlage.getNumRows(), mPlage.getNumCols(), 0xFF00FF);
-
-		Matrix mTriangulaireInf = new Matrix(mMonaLisa.getNumRows(), 1, 1, MatrixType.LOWER_TRIANGLE);
-		Matrix mUns = new Matrix(mPlage.getNumRows(), mPlage.getNumCols(), 1);
 
 		System.out.println("Incrustation de Mona Lisa sur la plage...");
 

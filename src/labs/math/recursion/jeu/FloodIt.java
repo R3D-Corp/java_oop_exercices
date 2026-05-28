@@ -39,7 +39,6 @@ public class FloodIt extends JFrame {
     
     private final int[][] grille = new int[NB_ROWS][NB_COLS];    
     private int nbCoups = 0;
-    private boolean gameOver = false;
 
     // Palette de 6 couleurs 
     private final Color[] palette = {
@@ -80,7 +79,6 @@ public class FloodIt extends JFrame {
             }
         }
         nbCoups = 0;
-        gameOver = false;
     }
     
     
@@ -100,11 +98,9 @@ public class FloodIt extends JFrame {
 
         // Analyse du statut de la partie
         if (estGagne()) {
-            gameOver = true;
             setPaletteEnabled(false);
             statusLabel.setText("Gagné en " + nbCoups + " coup(s) !");
         } else if (nbCoups >= MAX_COUPS) {
-            gameOver = true;
             setPaletteEnabled(false);
             statusLabel.setText("Perdu ! Limite de " + MAX_COUPS + " coups atteinte.");
         } else {

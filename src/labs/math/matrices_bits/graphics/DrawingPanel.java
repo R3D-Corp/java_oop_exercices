@@ -826,6 +826,7 @@ public final class DrawingPanel extends FileFilter
     }
     
     // compares current DrawingPanel image to an image file on the web
+    @SuppressWarnings("unused")
     private void compareToURL() {
         // save current image to a temp file
         try {
